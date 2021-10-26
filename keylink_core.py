@@ -45,6 +45,7 @@ ratioPVBeng, fPVB, tPVB,  PVBmax, frag, pfaec[5], pfaec[6], bioturbRate, moveRat
 
 # Parameters CNlit=of daily litter, litterCN=total litter pool
 tStop, initWater, Nmin, rrg, rootTO, inputLit, CNlit, recLit, CtoMyc, NmyctoPlant, ee = import_pools('KL_runparams')
+tStop = int(tStop) # tStop will be used as an array index, so it has to be int
 PW = initWater/100*PVstruct #fraction of pore volume filled with water
 
 Nfauna=sum(B[:NrGroups+1]/CN) #N in food web functional groups
@@ -403,7 +404,7 @@ def show_plot(soln, pwt, pvt):
     plt.legend(loc=(1.01, 0), shadow=True)
     
     plt.subplot(2, 1, 2)
-    te=(tStop-int(round((tStop/5))))
+    te=int(tStop-int(round((tStop/5))))
     # shows populations with last 20% days mean biomass values lower than gr[4] (assumed local extinction)
     for p in range(13):
         extvalue=((sum(soln[te:tStop,p]))/(tStop-te))
