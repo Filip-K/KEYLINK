@@ -231,7 +231,13 @@ def KeylinkModel(Val):
         pores[i,:]=pv
         nd = np.array([31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) # number of days in each month
     
-        zip=climatefile.readline().split() #daily meteorological data
+        line = climatefile.readline() #daily meteorological data
+        if line == '': # End of file has been reached
+            climatefile.seek(0)
+            climatefile.readline() # Discard the comment line
+        else:
+            zip=line.split() 
+        
         year=int(zip[1])
         month=(int(zip[2])-1)
         ly=0 #it will became 1 in leap-years
@@ -372,7 +378,6 @@ def show_plot(soln, pwt, pvt):
             plt.plot(t, soln[:, p], label=popname[p], c=popcolour[p])    
     
     plt.ylabel('Biomass, gC/m3')
-    plt.ylim(0, gr[1])
     plt.legend(loc=(1.01, 0), shadow=True)
     
     plt.subplot(2, 1, 2)
@@ -384,7 +389,6 @@ def show_plot(soln, pwt, pvt):
     
     plt.xlabel('Time,days')
     plt.ylabel('Biomass, gC/m3')
-    plt.ylim(0, gr[2])
     plt.legend(loc=(1.01, 0), shadow=True)
     
     plt.show()    
@@ -399,7 +403,6 @@ def show_plot(soln, pwt, pvt):
             plt.plot(t, soln[:, p], label=popname[p], c=popcolour[p])
     
     plt.ylabel('Biomass, gC/m3')
-    plt.ylim(0, gr[3])
     plt.legend(loc=(1.01, 0), shadow=True)
     
     plt.subplot(2, 1, 2)
