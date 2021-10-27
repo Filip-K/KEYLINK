@@ -358,7 +358,6 @@ def show_plot(soln, pwt, pvt):
     
     plt.xlabel('Time,days')
     plt.ylabel('Biomass, gC/m3')
-    plt.ylim(0, gr[0])
     plt.legend(loc=(1.01, 0), shadow=True)
     
     plt.show()
