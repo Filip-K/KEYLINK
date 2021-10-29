@@ -3,6 +3,9 @@ NEW main for calling KEYLINK model as a function, either single call, bayesian o
  using posterior (parameter set) or using parameter distributions. 
 '''
 
+#%%
+%load_ext autoreload # ipython magic commands to facilitate interactive work.
+%autoreload 2 # Comment/delete to run with standard, non-interactive python.
 
 import numpy as nm
 from numpy import matlib as ml
@@ -10,6 +13,7 @@ from numpy import random as ra
 import scipy
 from scipy import stats
 import keylink_core as core
+# %%
 
 "runmode can be single, bayesian, posterior (or distribution, not yet implimented)"
 runmode='single'
@@ -21,7 +25,10 @@ if (runmode=='single'):
  Cpools, PWt, PVt, pores=core.KeylinkModel(gmax) 
  core.export_pools('keylinkoutput', Cpools)
  core.show_plot(Cpools, PWt, PVt)  
- 
+# %%
+
+core.show_plot(Cpools, PWt, PVt)
+# %%
 # pValues        =  [1.06,1.14,1.04,1.540,1.188,0.038,0.072,0.028,0.14]    
 
 if(runmode=='bayesian'):
