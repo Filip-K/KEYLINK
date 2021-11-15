@@ -1,4 +1,4 @@
-5000	#number of days of run
+10000	#number of days of run
 100	#inital soil water % of max
 5	#initial N mineral
 0.575	#daily root growth
