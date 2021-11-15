@@ -4,8 +4,10 @@ NEW main for calling KEYLINK model as a function, either single call, bayesian o
 '''
 
 #%%
-%load_ext autoreload # ipython magic commands to facilitate interactive work.
-%autoreload 2 # Comment/delete to run with standard, non-interactive python.
+# ipython magic commands to facilitate interactive work.
+# Comment/delete to run with standard, non-interactive python.
+%load_ext autoreload 
+%autoreload 2 
 
 import numpy as nm
 from numpy import matlib as ml
