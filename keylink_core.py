@@ -23,7 +23,7 @@ def export_pools(filename, array):
     np.savetxt(filename + '.txt', array)
 
 NrGroups=8
-CompetingSpecies=True
+CompetingSpecies=False
 pfaec = np.zeros(NrGroups-1)
 PVstruct=np.zeros(5)
 drainage = 0
@@ -297,13 +297,13 @@ def KeylinkModel(Val):
             day = odeint(mf.fCompSpecies, B, [i, i+1], args=(avail, modt, GMAX, litterCN,SOMCN, mf, CN, MCN, MREC, pH, recLit, FAEC, pfaec, rRESP,
          KS, DEATH, CtoMyc))
         else:    
-            day = odeint(fEight, B, [i, i+1], args=(avail, modt, GMAX, litterCN, SOMCN))
+            # B = odeint(fEight, B, [i, i+1], args=(avail, modt, GMAX, litterCN, SOMCN))[1, :]
+            B += fEight(B, i, avail, modt, GMAX, litterCN, SOMCN)
         
             
         
         # Second column is end value for day i, start value for day i + 1
-        psoln[i-std] = day[1, :]
-        B = day[1, :]
+        psoln[i-std] = B
         et = ee*pet #evapotranspiration (rate of effective evapotranspiration * potential evapotranspiration)
         PW = mf.wl(PW,et) # water lost by evapotranspiration: we do this at the end of the day (otherwise soil is always dry)
 

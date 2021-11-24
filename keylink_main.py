@@ -16,6 +16,11 @@ import scipy
 from scipy import stats
 import keylink_core as core
 # %%
+param = core.import_pools('KL_FaunalParams')   
+gmax=param[0,:] 
+%timeit core.KeylinkModel(gmax)
+# %%
+%%time
 
 "runmode can be single, bayesian, posterior (or distribution, not yet implimented)"
 runmode='single'
@@ -24,7 +29,7 @@ if (runmode=='single'):
 #read the gmax values
  param = core.import_pools('KL_FaunalParams')   
  gmax=param[0,:] 
- Cpools, PWt, PVt, pores=core.KeylinkModel(gmax) 
+ Cpools, PWt, PVt, pores=core.KeylinkModel(gmax)
  core.export_pools('keylinkoutput', Cpools)
  core.show_plot(Cpools, PWt, PVt)  
 # %%
