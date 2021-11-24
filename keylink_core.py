@@ -297,7 +297,6 @@ def KeylinkModel(Val):
             day = odeint(mf.fCompSpecies, B, [i, i+1], args=(avail, modt, GMAX, litterCN,SOMCN, mf, CN, MCN, MREC, pH, recLit, FAEC, pfaec, rRESP,
          KS, DEATH, CtoMyc))
         else:    
-            # B = odeint(fEight, B, [i, i+1], args=(avail, modt, GMAX, litterCN, SOMCN))[1, :]
             B += fEight(B, i, avail, modt, GMAX, litterCN, SOMCN)
         
             

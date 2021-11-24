@@ -16,10 +16,6 @@ import scipy
 from scipy import stats
 import keylink_core as core
 # %%
-param = core.import_pools('KL_FaunalParams')   
-gmax=param[0,:] 
-%timeit core.KeylinkModel(gmax)
-# %%
 %%time
 
 "runmode can be single, bayesian, posterior (or distribution, not yet implimented)"
