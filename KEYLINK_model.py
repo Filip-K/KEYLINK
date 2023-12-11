@@ -44,6 +44,7 @@ ratioPVBeng, fPVB, tPVB,  PVBmax, frag, pfaec[5], pfaec[6], bioturbRate, moveRat
 
 # Parameters CNlit=of daily litter, litterCN=total litter pool
 tStop, initWater, Nmin, rrg, rootTO, inputLit, CNlit, recLit, CtoMyc, NmyctoPlant, ee = import_pools('KL_runparams')
+tStop = int(tStop) # tStop will be used as an array index, so it has to be int
 PW = initWater/100*PVstruct  #fraction of pore volume filled with water
 
 Nfauna=sum(B[:9]/CN) #N in food web functional groups
@@ -125,7 +126,7 @@ def show_plot(soln, pwt, pvt):
     plt.legend(loc=(1.01, 0), shadow=True)
     
     plt.subplot(2, 1, 2)
-    te=(tStop-int(round((tStop/5))))
+    te=int(tStop-int(round((tStop/5))))
     # shows populations with last 20% days mean biomass values lower than gr[4] (assumed local extinction)
     for p in range(13):
         extvalue=((sum(soln[te:tStop,p]))/(tStop-te))
@@ -347,11 +348,10 @@ for i in range(int(std), int(std+tStop)):
     
     # Call the ODE solver for day i
 #    day = odeint(f, B, [i, i+1], args=(avail,modt,))
-    day = odeint(f, B, [i, i+1], args=(avail, modt, GMAX, litterCN, SOMCN))
 
     # Second column is end value for day i, start value for day i + 1
-    psoln[i-std] = day[1, :]
-    B = day[1, :]
+    B[:-1] += f(B, i, avail, modt, GMAX, litterCN, SOMCN)
+    psoln[i-std] = B
     et = ee*pet #evapotranspiration (rate of effective evapotranspiration * potential evapotranspiration)
     PW = mf.wl(PW,et) # water lost by evapotranspiration: we do this at the end of the day (otherwise soil is always dry)
 
